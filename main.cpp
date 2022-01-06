@@ -106,7 +106,6 @@ void input() {
                             game_state = "main_game";
                         else
                             game_state = "setup";
-                        std::cout << game_state << std::endl;
                         break;
                     case SDLK_j:
                         posY--;
@@ -211,7 +210,9 @@ void main_loop() {
 
 int main() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+        #ifndef __EMSCRIPTEN__
         std::cout << "Failed at SDL_Init()" <<  std::endl;
+        #endif
     if (SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_RESIZABLE, &window, &renderer) < 0)
         std::cout << "Failed at SDL_CreateWindowAndRenderer()" << std::endl;
     if (TTF_Init() < 0)
@@ -222,6 +223,8 @@ int main() {
         std::cout << "Failed at TTF_OpenFont()" << TTF_GetError() << std::endl;
 
     SDL_SetWindowTitle(window, "Conway's Game of Life");
+
+    std::cout << "Click on cell to toggle\nPress space to switch between setup/main mode\nPress - + to change GPS (gen per sec)\nUse h, j, k, l to navigate around (vim keybind)" << std::endl;
 
     #ifdef __EMSCRIPTEN__
     emscripten_set_main_loop(main_loop, 0, 1);
