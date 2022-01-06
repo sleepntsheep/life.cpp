@@ -1,9 +1,15 @@
 #include <iostream>
 #include <set>
-#include <vector>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <SDL.h>
+#include <SDL_ttf.h>
+#else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#endif
 #include "main.h"
+#include <vector>
 
 SDL_Renderer *renderer;
 SDL_Window *window;
@@ -193,6 +199,16 @@ void update() {
         next_gen();
 }
 
+void main_loop() {
+    update();
+    input();
+    render();
+
+    SDL_Delay(time_left());
+    next_time += 1000 / FPS;
+    frames++;
+}
+
 int main() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         std::cout << "Failed at SDL_Init()" <<  std::endl;
@@ -207,15 +223,13 @@ int main() {
 
     SDL_SetWindowTitle(window, "Conway's Game of Life");
 
+    #ifdef __EMSCRIPTEN__
+    emscripten_set_main_loop(main_loop, 0, 1);
+    #else
     while (running) {
-        update();
-        input();
-        render();
-
-        SDL_Delay(time_left());
-        next_time += 1000 / FPS;
-        frames++;
+        main_loop();
     }
+    #endif
 
     TTF_CloseFont(font);
     SDL_DestroyRenderer(renderer);
