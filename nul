@@ -1,0 +1,2 @@
+Setting environment variables:
+PATH = /home/sheep/emsdk:/home/sheep/emsdk/upstream/emscripten:/home/sheep/emsdk/node/14.15.5_64bit/bin:/home/sheep/bin:/usr/local/bin:/home/sheep/.nvm/versions/node/v17.3.0/bin:/home/sheep/.cargo/bin:/home/sheep/.pyenv/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/emscripten:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/sheep/.local/bin
