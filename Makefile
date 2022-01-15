@@ -1,6 +1,7 @@
 CC=g++
-MW=x86_64-w64-mingw32-g++
-CFLAGS=-Wall -Wextra -Werror -std=c++17
+MW=i686-w64-mingw32-g++
+CFLAGS=-std=c++17 -Wl, -Bstatic -static-libgcc -static-libstdc++ -lstdc++ -lpthread #-Wl,-Bdynamic -Werror 
+CFLAGSW=-std=c++17 -static-libgcc -static-libstdc++ -lstdc++ -lwinpthread #-Wl,-Bdynamic -Werror 
 OUT=program
 
 run:
@@ -10,15 +11,15 @@ run:
 clean:
 	rm -f $(OUT)
 
-build: main.cpp main.h
-	$(CC) $(CFLAGS) -o $(OUT) main.cpp main.h -lSDL2 -lSDL2_ttf
+build: main.cc main.h
+	$(CC) $(CFLAGS) -o $(OUT) main.cc main.h -lSDL2 -lSDL2_ttf
 
-window: main.cpp main.h
-	$(MW) $(CFLAGS) -o $(OUT) main.cpp main.h -lSDL2 -lSDL2_ttf
+window: main.cc main.h
+	$(MW) $(CFLAGSW) -o $(OUT) main.cc main.h -lSDL2 -lSDL2_ttf
 
-wasm: 
+wasm:
 #	mkdir wasm
-	emcc main.cpp -o index.html -s USE_SDL=2 -s USE_SDL_TTF=2 --embed-file=./FSEX302.ttf
+	emcc main.cc -o index.html -s USE_SDL=2 -s USE_SDL_TTF=2 --embed-file=./FSEX302.ttf
 #	mv index.html wasm 
 #	mv index.js wasm
 #	mv index.wasm wasm
