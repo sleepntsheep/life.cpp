@@ -15,6 +15,7 @@ class Game {
         Renderer renderer;
         enum GameState state = Setup;
         int cell_size = 16;
+        bool show_border = true;
         int border_size = 1;
         Point offset{0, 0};
 };

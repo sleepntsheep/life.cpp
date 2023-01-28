@@ -16,8 +16,8 @@ class Renderer {
         void draw_rect(Rect rect, Color color);
         void render();
         void event(std::function<void(const SDL_Event &e)> f);
-        int width;
-        int height;
+        int width = 0;
+        int height = 0;
         bool quit = false;
 
     private:
