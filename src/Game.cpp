@@ -15,7 +15,7 @@ void Game::run()
                 int y = ev.button.y;
                 if (state == Setup) {
                     Point pos{x / cell_size, y / cell_size};
-                    pos = pos + offset;
+                    pos += offset;
                     if (life.get(pos)) {
                         life.erase(pos);
                     } else {
@@ -38,6 +38,18 @@ void Game::run()
                     case SDLK_EQUALS:
                         cell_size++;
                         break;
+                    case SDLK_h:
+                        offset.x--;
+                        break;
+                    case SDLK_j:
+                        offset.y++;
+                        break;
+                    case SDLK_k:
+                        offset.y--;
+                        break;
+                    case SDLK_l:
+                        offset.x++;
+                        break;
                 }
             }
         });
@@ -54,7 +66,8 @@ void Game::run()
         }
 
         life.iterate_cells([this](const Point &cell){
-                renderer.draw_rect(Rect{cell.x * cell_size, cell.y * cell_size,
+                auto sp = cell + -offset;
+                renderer.draw_rect(Rect{sp.x * cell_size, sp.y * cell_size,
                             cell_size, cell_size}, Color(0xFFFFFF));
         });
 
