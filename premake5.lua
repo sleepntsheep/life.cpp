@@ -19,10 +19,11 @@ project "life"
 kind "WindowedApp"
 language "C++"
 targetdir "%{cfg.buildcfg}"
+cppdialect "c++20"
 
-files { "*.h", "*.cpp" }
+files { "src/*.hpp", "src/*.cpp" }
 
-buildoptions { "-std=c++17", "-Wall", "-Wextra", "-pedantic" }
+buildoptions { "-Wall", "-Wextra", "-pedantic" }
 links { "SDL2", "SDL2_ttf" }
 
 filter "configurations:Debug"

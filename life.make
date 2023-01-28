@@ -38,8 +38,8 @@ TARGETDIR = Debug
 TARGET = $(TARGETDIR)/life
 OBJDIR = obj/Debug
 DEFINES += -DDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -std=c++17 -Wall -Wextra -pedantic
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -std=c++17 -Wall -Wextra -pedantic
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -Wall -Wextra -pedantic
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -std=c++20 -Wall -Wextra -pedantic
 ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),release)
@@ -47,8 +47,8 @@ TARGETDIR = Release
 TARGET = $(TARGETDIR)/life
 OBJDIR = obj/Release
 DEFINES += -DNDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2 -std=c++17 -Wall -Wextra -pedantic
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2 -std=c++17 -Wall -Wextra -pedantic
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2 -Wall -Wextra -pedantic
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2 -std=c++20 -Wall -Wextra -pedantic
 ALL_LDFLAGS += $(LDFLAGS) -s
 
 else ifeq ($(config),mingw)
@@ -56,8 +56,8 @@ TARGETDIR = Mingw
 TARGET = $(TARGETDIR)/life
 OBJDIR = obj/Mingw
 DEFINES +=
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -std=c++17 -Wall -Wextra -pedantic
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -std=c++17 -Wall -Wextra -pedantic
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Wall -Wextra -pedantic
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -std=c++20 -Wall -Wextra -pedantic
 ALL_LDFLAGS += $(LDFLAGS) -s
 
 endif
@@ -72,8 +72,14 @@ endif
 GENERATED :=
 OBJECTS :=
 
-GENERATED += $(OBJDIR)/main.o
-OBJECTS += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/Game.o
+GENERATED += $(OBJDIR)/Life.o
+GENERATED += $(OBJDIR)/Main.o
+GENERATED += $(OBJDIR)/Renderer.o
+OBJECTS += $(OBJDIR)/Game.o
+OBJECTS += $(OBJDIR)/Life.o
+OBJECTS += $(OBJDIR)/Main.o
+OBJECTS += $(OBJDIR)/Renderer.o
 
 # Rules
 # #############################################
@@ -137,7 +143,16 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/main.o: main.cpp
+$(OBJDIR)/Game.o: src/Game.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Life.o: src/Life.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Main.o: src/Main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Renderer.o: src/Renderer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

@@ -196,15 +196,7 @@ void render() {
     SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
 
     if (border) {
-        for (int i = cell_size; i < width; i += cell_size) {
-            SDL_Rect r = {i, 0, BORDER_SIZE, height};
-            SDL_RenderFillRect(renderer, &r);
-        }
-
-        for (int i = cell_size; i < height; i += cell_size) {
-            SDL_Rect r = {0, i, width, BORDER_SIZE};
-            SDL_RenderFillRect(renderer, &r);
-        }
+        
     }
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -264,15 +256,12 @@ void main_loop() {
     frames++;
 }
 
-#ifdef __MINGW32__
-int WinMain() {
-#else
 int main() {
-#endif
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
 #ifndef __EMSCRIPTEN__
         std::cout << "Failed at SDL_Init()" << std::endl;
 #endif
+
     if (SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_RESIZABLE,
                                     &window, &renderer) < 0)
         std::cout << "Failed at SDL_CreateWindowAndRenderer()" << std::endl;
