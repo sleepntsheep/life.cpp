@@ -7,14 +7,16 @@ class Game {
 
     public:
         Game() : renderer("Game Of Life", 800, 600, 60),
-                font("font.ttf", 24) {}
+                font("font.ttf", 32) {}
+
+
         ~Game() {}
         void run();
 
-    private:
-        Life life;
         Renderer renderer;
         Font font;
+        Life life;
+    private:
 
         enum GameState state = Setup;
         int cell_size = 16;

@@ -3,6 +3,7 @@
 #include <vector>
 #include "Point.hpp"
 #include <functional>
+#include <string_view>
 
 class Life {
     public:
@@ -15,6 +16,9 @@ class Life {
         void erase(Point p);
         int generation = 0;
         void iterate_cells(std::function<void(const Point &p)> f);
+
+        void load_from_file(std::string path);
+        void save_to_file(std::string path);
 
     private:
         std::set<Point> points;

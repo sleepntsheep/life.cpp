@@ -45,6 +45,9 @@ void Game::events()
                 case SDLK_l:
                     offset.x++;
                     break;
+                case SDLK_s:
+                    life.save_to_file("save");
+                    break;
             }
         }
     });

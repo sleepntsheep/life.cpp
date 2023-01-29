@@ -1,5 +1,6 @@
 #include "Life.hpp"
 #include <algorithm>
+#include <fstream>
 
 bool Life::get(Point p)
 {
@@ -60,5 +61,30 @@ void Life::do_generation()
 void Life::iterate_cells(std::function<void(const Point &p)> f)
 {
     std::for_each(points.begin(), points.end(), f);
+}
+
+void Life::save_to_file(std::string path)
+{
+    std::ofstream file;
+    file.open(path);
+    file << generation << '\n';
+    std::for_each(points.begin(), points.end(), [&file](const Point &p) {
+        file << p.x << ' ' << p.y << '\n';
+    });
+    file.close();
+}
+
+void Life::load_from_file(std::string path)
+{
+    std::ifstream file;
+    file.open(path);
+    file >> generation;
+    Point p {0, 0};
+    while (file)
+    {
+        file >> p.x >> p.y;
+        set(p);
+    }
+    file.close();
 }
 
