@@ -72,10 +72,12 @@ endif
 GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/Font.o
 GENERATED += $(OBJDIR)/Game.o
 GENERATED += $(OBJDIR)/Life.o
 GENERATED += $(OBJDIR)/Main.o
 GENERATED += $(OBJDIR)/Renderer.o
+OBJECTS += $(OBJDIR)/Font.o
 OBJECTS += $(OBJDIR)/Game.o
 OBJECTS += $(OBJDIR)/Life.o
 OBJECTS += $(OBJDIR)/Main.o
@@ -143,6 +145,9 @@ endif
 # File Rules
 # #############################################
 
+$(OBJDIR)/Font.o: src/Font.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Game.o: src/Game.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"

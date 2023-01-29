@@ -31,10 +31,10 @@ std::vector<Point> Life::all_neighbor(Point p)
 
 std::vector<Point> Life::alive_neighbor(Point p)
 {
-    auto all = all_neighbor(p);
+    const auto all = all_neighbor(p);
     std::vector<Point> alive;
     std::copy_if(all.begin(), all.end(), std::back_inserter(alive),
-            [this](Point p){ return get(p); } );
+            [this](const Point &p){ return get(p); } );
     return alive;
 }
 
@@ -59,7 +59,6 @@ void Life::do_generation()
 
 void Life::iterate_cells(std::function<void(const Point &p)> f)
 {
-    for (const auto &cell : points)
-        f(cell);
+    std::for_each(points.begin(), points.end(), f);
 }
 

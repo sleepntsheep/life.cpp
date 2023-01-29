@@ -3,8 +3,8 @@
 
 class Color {
     public:
-        int r, g, b, a;
-        Color(int r, int g, int b, int a) : r{r}, g{g}, b{b}, a{a} {}
+        uint8_t r, g, b, a;
+        Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : r{r}, g{g}, b{b}, a{a} {}
         Color(uint32_t rgb) {
             r = (rgb & 0xFF0000) >> 16;
             g = (rgb & 0x00FF00) >> 8;

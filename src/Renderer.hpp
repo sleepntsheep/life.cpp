@@ -4,8 +4,10 @@
 #include <string>
 #include <utility>
 #include <functional>
+#include "Point.hpp"
 #include "Color.hpp"
 #include "Rect.hpp"
+#include "Font.hpp"
 
 class Renderer {
     public:
@@ -13,8 +15,12 @@ class Renderer {
         ~Renderer();
 
         void clear(Color color);
+
         void draw_rect(Rect rect, Color color);
+        void draw_text(std::string text, Point at, const Font &font, Color color);
+
         void render();
+
         void event(std::function<void(const SDL_Event &e)> f);
         int width = 0;
         int height = 0;
